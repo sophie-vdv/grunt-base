@@ -1,10 +1,11 @@
+
 module.exports = function (grunt) {
+    const sass = require('node-sass');
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
-    grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-contrib-connect');
 
     grunt.initConfig({
@@ -16,17 +17,15 @@ module.exports = function (grunt) {
                 }
             }
         },
-        cssmin  : {
-            build : {
-                files : {
-                    'dist/css/main.min.css' : 'dist/css/main.css'
-                }
-            }
-        },
         sass: {
+            options: {
+                implementation: sass,
+                sourceMap: true,
+                outputStyle: 'compressed'
+            },
             dist: {
                 files: {
-                    'dist/css/main.css' : 'src/sass/import.scss'
+                    'dist/css/main.min.css' : 'src/sass/import.scss'
                 }
             }
         },
@@ -44,7 +43,7 @@ module.exports = function (grunt) {
             },
             sass    : {
                 files : 'src/sass/*.scss',
-                tasks : ['sass', 'cssmin']
+                tasks : ['sass']
             },
             html    : {
                 files : ['src/*.html'],
@@ -66,5 +65,5 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('default', ['uglify', 'sass', 'cssmin', 'copy', 'connect:server', 'watch']);
+    grunt.registerTask('default', ['uglify', 'sass', 'copy', 'connect:server', 'watch']);
 };
