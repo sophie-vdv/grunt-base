@@ -11,6 +11,6 @@
     "grunt-contrib-watch": "latest",
     "grunt-sass": "^3.0.2",
     "grunt-serve": "^0.1.6",
-    "node-sass": "^4.12.0"
+    "node-sass": "^7.0.0"
   }
 }
